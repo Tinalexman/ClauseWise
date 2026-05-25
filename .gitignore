@@ -237,3 +237,12 @@ thesis/*.pdf
 frontend/node_modules/
 frontend/.next/
 frontend/out/
+
+# Frontend source dirs must not be swept up by Python-packaging globs above
+# (e.g. the bare `lib/` / `build/` / `dist/` entries match anywhere by default).
+!frontend/lib/
+!frontend/lib/**
+!frontend/build/
+!frontend/build/**
+!frontend/dist/
+!frontend/dist/**
