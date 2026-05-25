@@ -1,0 +1,177 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────────────────────
+   ClauseWise — warm paper-toned tokens
+   ────────────────────────────────────────────────────────────── */
+:root {
+  --bg:        #FAF7F2;
+  --surface:   #FFFFFF;
+  --surface-2: #F5F1EA;
+  --surface-3: #EFEAE0;
+  --surface-4: #E7E1D4;
+
+  --border:     #EAE4D8;
+  --border-mid: #D8D1C2;
+  --border-hi:  #BFB8A8;
+
+  --text:   #2A2622;
+  --text-2: #6B655C;
+  --text-3: #A39C8E;
+  --text-4: #C7C0B2;
+
+  --sage:        #4F8B6E;
+  --sage-hi:     #5FA081;
+  --sage-lo:     #3F7A5E;
+  --sage-dim:    rgba(79,139,110,0.10);
+  --sage-dimer:  rgba(79,139,110,0.05);
+  --sage-ring:   rgba(79,139,110,0.22);
+
+  --clay:        #C97B5A;
+  --clay-dim:    rgba(201,123,90,0.10);
+  --clay-ring:   rgba(201,123,90,0.22);
+
+  --amber:       #C9963C;
+  --amber-dim:   rgba(201,150,60,0.10);
+  --amber-ring:  rgba(201,150,60,0.22);
+
+  --red:         #B14747;
+  --red-dim:     rgba(177,71,71,0.10);
+  --red-ring:    rgba(177,71,71,0.22);
+
+  --blue:        #3D6FA8;
+  --blue-dim:    rgba(61,111,168,0.10);
+  --blue-ring:   rgba(61,111,168,0.22);
+
+  --font-display: "Newsreader", "Source Serif Pro", Georgia, serif;
+  --font-ui:      "DM Sans", system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono", "Fira Code", monospace;
+
+  --radius-xs: 4px;
+  --radius-sm: 7px;
+  --radius:    10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+
+  --shadow-sm: 0 1px 2px rgba(42,38,34,0.04);
+  --shadow:    0 2px 8px rgba(42,38,34,0.06);
+  --shadow-lg: 0 24px 60px rgba(42,38,34,0.10);
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+
+body {
+  font-family: var(--font-ui);
+  font-size: 13.5px;
+  line-height: 1.55;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+button { font-family: inherit; }
+input, textarea { font-family: inherit; }
+ul { list-style: none; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--border-mid);
+  border-radius: 999px;
+  border: 2px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--border-hi); }
+
+/* ── Focus ── */
+:focus-visible {
+  outline: 2px solid var(--sage);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Selection ── */
+::selection {
+  background: rgba(79,139,110,0.22);
+  color: var(--text);
+}
+
+/* ── Font utilities ── */
+.font-display { font-family: var(--font-display); }
+.font-mono    { font-family: var(--font-mono); }
+
+/* ── Skeleton shimmer ── */
+@keyframes shimmer {
+  0%   { background-position: -300% 0; }
+  100% { background-position:  300% 0; }
+}
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--surface-2) 25%,
+    var(--surface-3) 50%,
+    var(--surface-2) 75%
+  );
+  background-size: 300% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+}
+
+/* ── Fade-up entry ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up    { animation: fadeUp 220ms cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
+.fade-up-d1 { animation-delay: 60ms; }
+.fade-up-d2 { animation-delay: 120ms; }
+.fade-up-d3 { animation-delay: 180ms; }
+
+/* ── Typing dots ── */
+@keyframes typing {
+  0%, 60%, 100% { transform: translateY(0);   opacity: 0.3; }
+  30%           { transform: translateY(-3px); opacity: 1; }
+}
+.typing-dot {
+  display: inline-block;
+  width: 5px; height: 5px;
+  margin: 0 1px;
+  border-radius: 999px;
+  background: var(--text-3);
+  animation: typing 1.3s ease-in-out infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.16s; }
+.typing-dot:nth-child(3) { animation-delay: 0.32s; }
+
+/* ── Spinner ── */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner {
+  display: inline-block;
+  width: 12px; height: 12px;
+  border: 1.6px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 999px;
+  animation: spin 700ms linear infinite;
+}
+
+/* ── Drag overlay ── */
+@keyframes dragIn {
+  from { opacity: 0; backdrop-filter: blur(0); }
+  to   { opacity: 1; backdrop-filter: blur(6px); }
+}
+.drag-overlay {
+  position: fixed; inset: 0; z-index: 80;
+  background: rgba(42,38,34,0.32);
+  display: flex; align-items: center; justify-content: center;
+  animation: dragIn 140ms ease-out both;
+  backdrop-filter: blur(6px);
+}
+
+@keyframes march { to { stroke-dashoffset: -16; } }
+.marching-border {
+  stroke-dasharray: 8 4;
+  animation: march 600ms linear infinite;
+}

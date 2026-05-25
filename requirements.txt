@@ -1,0 +1,56 @@
+# ClauseWise — Python 3.12+
+# Install: pip install -r requirements.txt
+
+# ── ML / Retrieval ───────────────────────────────────────────────
+sentence-transformers>=5.0        # CrossEncoder for NLI fidelity check
+voyageai>=0.3                     # Voyage embeddings + reranker
+chromadb>=1.0                     # persistent vector store
+rank-bm25>=0.2                    # sparse BM25 index
+
+# ── Document Parsing ─────────────────────────────────────────────
+pdfplumber>=0.11
+PyMuPDF>=1.24                     # fitz — PDF parsing in ingestion pipeline
+unstructured[pdf]>=0.14
+spacy>=3.8                        # sentence segmentation in chunker
+
+# ── Generation / LLM ─────────────────────────────────────────────
+openai>=2.0                       # 2.x API (breaking change from 1.x)
+sumy>=0.11                        # extractive summarisation baseline
+
+# ── Verification (local NLI) ─────────────────────────────────────
+transformers>=4.44
+torch>=2.3
+
+# ── Evaluation Metrics ───────────────────────────────────────────
+ragas>=0.1
+textstat>=0.7
+scipy>=1.13
+scikit-learn>=1.5
+
+# ── Visualisation ────────────────────────────────────────────────
+matplotlib>=3.9
+seaborn>=0.13
+plotly>=5.22
+kaleido>=0.2                      # static export for plotly figures
+
+# ── Backend ──────────────────────────────────────────────────────
+fastapi>=0.111
+uvicorn[standard]>=0.30
+python-multipart>=0.0.9
+pydantic>=2.0
+pydantic-settings>=2.0
+python-dotenv>=1.0
+httpx>=0.27
+
+# ── Data / Utils ─────────────────────────────────────────────────
+pandas>=2.2
+numpy>=1.26
+pyyaml>=6.0
+nltk>=3.8
+tqdm>=4.66
+
+# ── Dev / Test (optional) ────────────────────────────────────────
+pytest>=8.0
+pytest-asyncio>=0.23
+ruff>=0.4
+mypy>=1.10

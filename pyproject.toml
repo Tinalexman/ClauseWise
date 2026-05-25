@@ -1,0 +1,77 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "clausewise"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    # ML / retrieval
+    "sentence-transformers>=3.0",
+    "faiss-cpu>=1.8",
+    "rank-bm25>=0.2",
+    "chromadb>=0.5",
+    # document parsing
+    "pdfplumber>=0.11",
+    "unstructured[pdf]>=0.14",
+    # generation / LLM
+    "openai>=1.30",
+    "sumy>=0.11",
+    # verification
+    "transformers>=4.44",
+    "torch>=2.3",
+    # evaluation
+    "ragas>=0.1",
+    "textstat>=0.7",
+    "scipy>=1.13",
+    "scikit-learn>=1.5",
+    # visualisation
+    "matplotlib>=3.9",
+    "seaborn>=0.13",
+    "plotly>=5.22",
+    "kaleido>=0.2",
+    # backend
+    "fastapi>=0.111",
+    "uvicorn[standard]>=0.30",
+    "python-multipart>=0.0.9",
+    "pydantic",
+    "pydantic-settings",
+    "python-dotenv",
+    "httpx",
+    # data / utils
+    "pandas",
+    "numpy",
+    "pyyaml",
+    "nltk",
+    "tqdm",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "ruff",
+    "mypy",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = false
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

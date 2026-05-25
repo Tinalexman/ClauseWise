@@ -1,0 +1,113 @@
+# Risk Ontology — ClauseWise
+# 8 consumer-risk categories used by the RiskClassifier and generation prompts.
+# detection_signals.patterns are Python-compatible regex strings.
+
+categories:
+  automatic_renewal:
+    definition: "Clause that automatically renews a contract for another term unless cancelled."
+    severity_default: high
+    consumer_impact: "Consumer is billed for another period without explicit consent."
+    recommended_actions:
+      - "Note the cancellation deadline in your calendar before the renewal date."
+      - "Set a calendar reminder 30 days before the renewal window closes."
+    detection_signals:
+      keywords: ["automatically renew", "auto-renew", "unless cancelled", "unless you cancel", "continuation"]
+      patterns:
+        - "\\bauto[- ]?renew\\w*\\b"
+        - "\\bwill renew\\b"
+        - "\\bcontinue\\b.{0,40}\\buntil cancelled\\b"
+
+  broad_liability:
+    definition: "Clause that limits or disclaims all liability of the provider, often in broad terms."
+    severity_default: critical
+    consumer_impact: "You may have no legal recourse if the service causes harm or financial loss."
+    recommended_actions:
+      - "Assess whether the limitation is enforceable in your jurisdiction."
+      - "Seek legal advice if the service involves significant financial or health risk."
+    detection_signals:
+      keywords: ["not liable", "no liability", "disclaim", "limitation of liability", "in no event"]
+      patterns:
+        - "\\bin no event\\b"
+        - "\\bnot (be )?liable\\b"
+        - "\\bmaximum (aggregate )?liability\\b"
+
+  vague_cancellation:
+    definition: "Cancellation terms that are unclear, buried, or require unusual steps."
+    severity_default: medium
+    consumer_impact: "Consumer may struggle to cancel and face continued charges."
+    recommended_actions:
+      - "Locate the exact cancellation procedure before signing."
+      - "Document the steps required and any notice period required."
+    detection_signals:
+      keywords: ["cancel", "termination", "notice period", "written notice", "30 days notice"]
+      patterns:
+        - "\\b(cancel|terminat)\\w+\\b.{0,60}\\b(written|notice|days)\\b"
+        - "\\bnotice period\\b"
+
+  one_sided_indemnity:
+    definition: "Consumer must indemnify the provider against losses, but not vice versa."
+    severity_default: high
+    consumer_impact: "You may be legally responsible for provider's legal costs and damages."
+    recommended_actions:
+      - "Negotiate to cap indemnity obligations or make them mutual."
+      - "Seek legal advice before signing if indemnity scope is unlimited."
+    detection_signals:
+      keywords: ["indemnify", "hold harmless", "defend", "indemnification"]
+      patterns:
+        - "\\bindemnif\\w+\\b"
+        - "\\bhold\\b.{0,20}\\bharmless\\b"
+
+  hidden_penalties:
+    definition: "Fees or penalties not prominently disclosed in the main terms."
+    severity_default: high
+    consumer_impact: "Unexpected charges can be levied without clear prior notice."
+    recommended_actions:
+      - "Request a full fee schedule before signing."
+      - "Search for 'fee', 'penalty', 'charge', 'surcharge' in the full document."
+    detection_signals:
+      keywords: ["penalty", "late fee", "early termination fee", "surcharge", "administrative fee"]
+      patterns:
+        - "\\b(early termination|cancellation) fee\\b"
+        - "\\blate (payment )?fee\\b"
+        - "\\bpenalt\\w+\\b"
+
+  excessive_data_sharing:
+    definition: "Clause permitting broad sharing or sale of personal data to third parties."
+    severity_default: critical
+    consumer_impact: "Your personal data may be sold or shared beyond what you expect."
+    recommended_actions:
+      - "Check if you can opt out of data sharing in account settings."
+      - "Review the privacy policy for data retention and deletion rights."
+    detection_signals:
+      keywords: ["share", "sell", "disclose", "third party", "partners", "affiliates", "data"]
+      patterns:
+        - "\\b(share|sell|disclose)\\b.{0,40}\\b(personal|user)\\b.{0,20}\\bdata\\b"
+        - "\\bthird[- ]part\\w+\\b.{0,40}\\bdata\\b"
+
+  unclear_dispute_resolution:
+    definition: "Dispute resolution clause that is vague, forces arbitration, or limits class actions."
+    severity_default: medium
+    consumer_impact: "You may be prevented from suing in court or joining class-action lawsuits."
+    recommended_actions:
+      - "Identify whether the clause requires arbitration and in which jurisdiction."
+      - "Check if there is an opt-out window for arbitration (common in the US)."
+    detection_signals:
+      keywords: ["arbitration", "dispute resolution", "class action", "waive", "binding arbitration"]
+      patterns:
+        - "\\bbinding arbitration\\b"
+        - "\\bclass[- ]action waiver\\b"
+        - "\\bdispute\\b.{0,40}\\b(arbitrat|resolv)\\w+\\b"
+
+  missing_refund_terms:
+    definition: "Clause that excludes, limits, or fails to specify refund rights."
+    severity_default: medium
+    consumer_impact: "You may have no right to a refund even if the service is not delivered."
+    recommended_actions:
+      - "Ask for the refund policy in writing before paying."
+      - "Verify statutory consumer refund rights in your jurisdiction."
+    detection_signals:
+      keywords: ["no refund", "non-refundable", "all sales final", "refund policy"]
+      patterns:
+        - "\\bno refunds?\\b"
+        - "\\bnon[- ]refundable\\b"
+        - "\\ball (sales|payments) (are )?final\\b"
